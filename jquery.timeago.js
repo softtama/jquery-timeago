@@ -65,7 +65,8 @@
         years: "%d years",
         wordSeparator: " ",
         numbers: []
-      }
+      },
+      dateOnly: false // get current time in date-only format (see 'distance' function)
     },
 
     inWords: function(distanceMillis) {
@@ -216,7 +217,11 @@
   }
 
   function distance(date) {
-    return (new Date().getTime() - date.getTime());
+    var currentDateTime = new Date().getTime();
+    if ($t.settings.dateOnly) {
+      currentDateTime = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime();
+    }
+    return (currentDateTime - date.getTime());
   }
 
   // fix for IE6 suckage
